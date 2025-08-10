@@ -15,11 +15,14 @@ namespace Flunklug.Behaviours
 
         private GameObject kill;
 
+        // i don't know why a dictionary is used, but i could care less actually
         public static Dictionary<int, string> stylesAndNames = new()
         {
             { 0, "Default" },
             { 1, "Phoenix" },
-            { 2, "Staircase" }
+            { 2, "Staircase" },
+            { 3, "Silly" },
+            { 4, "Steady" }
         };
 
         public void Awake()
@@ -32,7 +35,7 @@ namespace Flunklug.Behaviours
             audioSource.playOnAwake = false;
             audioSource.clip = AssetLoader.LoadClip("kill");
             audioSource.spatialBlend = 1f;
-            
+
             if (Plugin.SpawnOnLoad.Value) GenerateFlunklug(0).Teleport(new Vector3(-65.7576f, 12.1956f, -83.4815f), false);
         }
 

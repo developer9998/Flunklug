@@ -1,20 +1,25 @@
 ﻿using Flunklug.Behaviours;
+using GorillaExtensions;
 using GorillaInfoWatch.Models;
+using GorillaInfoWatch.Models.Enumerations;
 using GorillaInfoWatch.Models.Widgets;
 using System;
+using System.Diagnostics.SymbolStore;
 using System.Linq;
 using UnityEngine;
 using Player = GorillaLocomotion.GTPlayer;
+using Random = UnityEngine.Random;
+using Screen = GorillaInfoWatch.Models.Screen;
 
 namespace Flunklug.Models
 {
-    public class SelectedFlunklugScreen : InfoWatchScreen
+    public class SelectedFlunklugScreen : Screen
     {
         public static FlunklugBall ball;
 
         public override string Title => $"<color=#{ColorUtility.ToHtmlStringRGB(ball.color)}>{ball.flunkName}</color>";
 
-        public override ScreenContent GetContent()
+        public override ScreenLines GetContent()
         {
             LineBuilder lines = new();
 
@@ -24,20 +29,20 @@ namespace Flunklug.Models
             lines.Add($"Throw Strength: {Math.Round(ball.throwStrength, 1)}", new Widget_PushButton(SelectPushButton, 2, -1f)
             {
                 Colour = ColourPalette.Red,
-                Symbol = InfoWatchSymbol.Stop
+                Symbol = Symbols.Stop
             }, new Widget_PushButton(SelectPushButton, 2, 1f)
             {
                 Colour = ColourPalette.Green,
-                Symbol = InfoWatchSymbol.Play
+                Symbol = Symbols.Play
             });
             lines.Add($"Static Friction: {Math.Round(ball.material.staticFriction, 1)}", new Widget_PushButton(SelectPushButton, 3, -1f)
             {
                 Colour = ColourPalette.Red,
-                Symbol = InfoWatchSymbol.Stop
+                Symbol = Symbols.Stop
             }, new Widget_PushButton(SelectPushButton, 3, 1f)
             {
                 Colour = ColourPalette.Green,
-                Symbol = InfoWatchSymbol.Play
+                Symbol = Symbols.Play
             });
             lines.Add($"Style: {(FlunkController.stylesAndNames.TryGetValue(ball.style, out string value) ? value : "N/A")}", new Widget_SnapSlider(ball.style, 0, FlunkController.stylesAndNames.Count - 1, AdjustSlider)
             {
@@ -54,7 +59,7 @@ namespace Flunklug.Models
                 switch (option)
                 {
                     case 0:
-                        ball.Teleport(Player.Instance.HeadCenterPosition, true);
+                        ball.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0), true);
                         break;
                     case 1:
                         FlunkController.Instance.DestroyBall(ball, true);

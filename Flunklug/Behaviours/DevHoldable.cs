@@ -15,7 +15,7 @@ namespace Flunklug.Behaviours
             SwappedLeft = true;
 
         public float
-            GrabDistance = 0.15f,
+            GrabDistance = 0.25f,
             ThrowForce = 1.75f;
 
         public virtual void OnGrab(bool isLeft)
@@ -95,17 +95,17 @@ namespace Flunklug.Behaviours
 
         public override void DropItemCleanup()
         {
-            
+
         }
 
         public override void OnGrab(InteractionPoint pointGrabbed, GameObject grabbingHand)
         {
-            
+
         }
 
         public override void OnHover(InteractionPoint pointHovered, GameObject hoveringHand)
         {
-            
+
         }
     }
 }

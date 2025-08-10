@@ -1,21 +1,23 @@
 ﻿using Flunklug.Behaviours;
-using GorillaInfoWatch.Attributes;
+using GorillaExtensions;
+using GorillaInfoWatch.Models.Attributes;
 using GorillaInfoWatch.Models;
 using GorillaInfoWatch.Models.Widgets;
 using System.Linq;
 using UnityEngine;
 using Player = GorillaLocomotion.GTPlayer;
+using Screen = GorillaInfoWatch.Models.Screen;
 
 [assembly: InfoWatchCompatible]
 
 namespace Flunklug.Models
 {
     [ShowOnHomeScreen(DisplayTitle = "Flunklug")]
-    internal class MainFlunklugScreen : InfoWatchScreen
+    internal class MainFlunklugScreen : Screen
     {
-        public override string Title => "Flunklug (PL2W)";
+        public override string Title => "Flunklug (pl2w)";
 
-        public override ScreenContent GetContent()
+        public override ScreenLines GetContent()
         {
             PageBuilder pages = new();
 
@@ -28,12 +30,12 @@ namespace Flunklug.Models
             lines = new();
             if (FlunkController.lugs.Count != 0)
             {
-                foreach(var flunklugBall in FlunkController.lugs)
+                foreach (var flunklugBall in FlunkController.lugs)
                 {
                     lines.Append(flunklugBall.flunkName).Append(string.Format(
-                        " [{0}, {1}, {2}]", 
-                        Mathf.RoundToInt(flunklugBall.color.r * 10f), 
-                        Mathf.RoundToInt(flunklugBall.color.g * 10f), 
+                        " [{0}, {1}, {2}]",
+                        Mathf.RoundToInt(flunklugBall.color.r * 10f),
+                        Mathf.RoundToInt(flunklugBall.color.g * 10f),
                         Mathf.RoundToInt(flunklugBall.color.b * 10f)))
                     .Add(new Widget_PushButton(SelectFlunklug, flunklugBall));
                 }
@@ -56,7 +58,7 @@ namespace Flunklug.Models
                 {
                     case 0:
                         FlunklugBall flunklugBall = FlunkController.Instance.GenerateFlunklug(0);
-                        flunklugBall.Teleport(Player.Instance.HeadCenterPosition, false);
+                        flunklugBall.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0), false);
                         flunklugBall.PlayBirthSound();
                         SetContent();
                         break;
@@ -66,7 +68,7 @@ namespace Flunklug.Models
                         SetContent();
                         break;
                     case 2:
-                        FlunkController.lugs.ForEach(lug => lug.Teleport(Player.Instance.HeadCenterPosition, true));
+                        FlunkController.lugs.ForEach(lug => lug.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0), true));
                         break;
                 }
             }

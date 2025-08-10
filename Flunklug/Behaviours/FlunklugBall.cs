@@ -70,7 +70,7 @@ namespace Flunklug.Behaviours
             SetColor(color);
             ChangePhysics(1f, 1f);
             flunkName = names[Random.Range(0, names.Count)];
-            nameTag.text = flunkName;
+            nameTag.text = flunkName.ToUpper();
         }
 
         public void ChangePhysics(float bounce, float friction)
@@ -120,6 +120,12 @@ namespace Flunklug.Behaviours
                 transform.Find(FlunkController.stylesAndNames.Values.ElementAt(i)).gameObject.SetActive(false);
             }
             transform.Find(FlunkController.stylesAndNames[style]).gameObject.SetActive(true);
+
+            if (transform.Find($"NameTag_{FlunkController.stylesAndNames[style]}") is Transform tagPlacement && tagPlacement)
+            {
+                nameTag.transform.localPosition = tagPlacement.localPosition;
+                nameTag.transform.localEulerAngles = tagPlacement.localEulerAngles;
+            }
         }
     }
 }

@@ -3,7 +3,6 @@ using GorillaLocomotion.Swimming;
 using System.IO;
 using System.Reflection;
 using UnityEngine;
-using Object = UnityEngine.Object;
 
 namespace Flunklug.Tools
 {
