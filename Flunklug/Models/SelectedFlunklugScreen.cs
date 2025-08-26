@@ -29,20 +29,20 @@ namespace Flunklug.Models
             lines.Add($"Throw Strength: {Math.Round(ball.throwStrength, 1)}", new Widget_PushButton(SelectPushButton, 2, -1f)
             {
                 Colour = ColourPalette.Red,
-                Symbol = Symbols.Stop
+                Symbol = (Symbol)Symbols.Stop
             }, new Widget_PushButton(SelectPushButton, 2, 1f)
             {
                 Colour = ColourPalette.Green,
-                Symbol = Symbols.Play
+                Symbol = (Symbol)Symbols.Play
             });
             lines.Add($"Static Friction: {Math.Round(ball.material.staticFriction, 1)}", new Widget_PushButton(SelectPushButton, 3, -1f)
             {
                 Colour = ColourPalette.Red,
-                Symbol = Symbols.Stop
+                Symbol = (Symbol)Symbols.Stop
             }, new Widget_PushButton(SelectPushButton, 3, 1f)
             {
                 Colour = ColourPalette.Green,
-                Symbol = Symbols.Play
+                Symbol = (Symbol)Symbols.Play
             });
             lines.Add($"Style: {(FlunkController.stylesAndNames.TryGetValue(ball.style, out string value) ? value : "N/A")}", new Widget_SnapSlider(ball.style, 0, FlunkController.stylesAndNames.Count - 1, AdjustSlider)
             {
