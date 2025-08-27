@@ -4,22 +4,20 @@ using GorillaInfoWatch.Models;
 using GorillaInfoWatch.Models.Enumerations;
 using GorillaInfoWatch.Models.Widgets;
 using System;
-using System.Diagnostics.SymbolStore;
 using System.Linq;
 using UnityEngine;
 using Player = GorillaLocomotion.GTPlayer;
 using Random = UnityEngine.Random;
-using Screen = GorillaInfoWatch.Models.Screen;
 
 namespace Flunklug.Models
 {
-    public class SelectedFlunklugScreen : Screen
+    public class SelectedFlunklugScreen : InfoScreen
     {
         public static FlunklugBall ball;
 
         public override string Title => $"<color=#{ColorUtility.ToHtmlStringRGB(ball.color)}>{ball.flunkName}</color>";
 
-        public override ScreenLines GetContent()
+        public override InfoContent GetContent()
         {
             LineBuilder lines = new();
 
@@ -63,7 +61,7 @@ namespace Flunklug.Models
                         break;
                     case 1:
                         FlunkController.Instance.DestroyBall(ball, true);
-                        SetScreen<MainFlunklugScreen>();
+                        LoadScreen<MainFlunklugScreen>();
                         break;
                     case 2:
                         ball.throwStrength = Mathf.Max(ball.throwStrength + (0.1f * (float)args[1]), 0f);

@@ -1,23 +1,22 @@
 ﻿using Flunklug.Behaviours;
 using GorillaExtensions;
-using GorillaInfoWatch.Models.Attributes;
 using GorillaInfoWatch.Models;
+using GorillaInfoWatch.Models.Attributes;
 using GorillaInfoWatch.Models.Widgets;
 using System.Linq;
 using UnityEngine;
 using Player = GorillaLocomotion.GTPlayer;
-using Screen = GorillaInfoWatch.Models.Screen;
 
 [assembly: InfoWatchCompatible]
 
 namespace Flunklug.Models
 {
     [ShowOnHomeScreen(DisplayTitle = "Flunklug")]
-    internal class MainFlunklugScreen : Screen
+    internal class MainFlunklugScreen : InfoScreen
     {
         public override string Title => "Flunklug (pl2w)";
 
-        public override ScreenLines GetContent()
+        public override InfoContent GetContent()
         {
             PageBuilder pages = new();
 
@@ -79,7 +78,7 @@ namespace Flunklug.Models
             if (args.ElementAtOrDefault(0) is FlunklugBall flunklug && flunklug)
             {
                 SelectedFlunklugScreen.ball = flunklug;
-                SetScreen<SelectedFlunklugScreen>();
+                LoadScreen<SelectedFlunklugScreen>();
             }
         }
     }
