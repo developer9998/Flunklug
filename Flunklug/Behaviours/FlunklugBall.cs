@@ -13,7 +13,7 @@ namespace Flunklug.Behaviours
         public float throwStrength = 1f;
 
         public Rigidbody rb;
-        public PhysicMaterial material;
+        public PhysicsMaterial material;
         public GorillaVelocityEstimator velocityEstimator;
 
         public GameObject defaultLug;
@@ -60,7 +60,7 @@ namespace Flunklug.Behaviours
                 velocityEstimator = gameObject.AddComponent<GorillaVelocityEstimator>();
 
             rb = GetComponent<Rigidbody>();
-            material = new PhysicMaterial();
+            material = new PhysicsMaterial();
             GetComponent<Collider>().material = material;
 
             color.r = (float)Math.Round(Random.value, 1);
@@ -82,7 +82,7 @@ namespace Flunklug.Behaviours
 
         public void Teleport(Vector3 position, bool doSound)
         {
-            rb.velocity = Vector3.zero;
+            rb.linearVelocity = Vector3.zero;
             transform.position = position;
             if (doSound) teleportSound.Play();
         }
@@ -102,7 +102,7 @@ namespace Flunklug.Behaviours
         {
             base.OnDrop(isLeft);
             rb.isKinematic = false;
-            rb.velocity = velocityEstimator.linearVelocity * throwStrength;
+            rb.linearVelocity = velocityEstimator.linearVelocity * throwStrength;
             rb.angularVelocity = velocityEstimator.angularVelocity;
         }
 

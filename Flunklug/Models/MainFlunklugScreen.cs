@@ -11,6 +11,7 @@ using Player = GorillaLocomotion.GTPlayer;
 
 namespace Flunklug.Models
 {
+    [PreserveScreenSection]
     [ShowOnHomeScreen(DisplayTitle = "Flunklug")]
     internal class MainFlunklugScreen : InfoScreen
     {
@@ -57,7 +58,7 @@ namespace Flunklug.Models
                 {
                     case 0:
                         FlunklugBall flunklugBall = FlunkController.Instance.GenerateFlunklug(0);
-                        flunklugBall.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0), false);
+                        flunklugBall.Teleport(Player.Instance.HeadCenterPosition + (Random.insideUnitSphere.WithY(0) * 0.25f), false);
                         flunklugBall.PlayBirthSound();
                         SetContent();
                         break;
@@ -67,7 +68,7 @@ namespace Flunklug.Models
                         SetContent();
                         break;
                     case 2:
-                        FlunkController.lugs.ForEach(lug => lug.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0), true));
+                        FlunkController.lugs.ForEach(lug => lug.Teleport(Player.Instance.HeadCenterPosition + (Random.insideUnitSphere.WithY(0) * 0.25f), true));
                         break;
                 }
             }

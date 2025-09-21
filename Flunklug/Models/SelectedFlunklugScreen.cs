@@ -26,21 +26,29 @@ namespace Flunklug.Models
             lines.Skip();
             lines.Add($"Throw Strength: {Math.Round(ball.throwStrength, 1)}", new Widget_PushButton(SelectPushButton, 2, -1f)
             {
-                Colour = ColourPalette.Red,
-                Symbol = (Symbol)Symbols.Stop
+                Symbol = new Symbol(Symbols.Minus)
+                {
+                    Colour = Color.black
+                }
             }, new Widget_PushButton(SelectPushButton, 2, 1f)
             {
-                Colour = ColourPalette.Green,
-                Symbol = (Symbol)Symbols.Play
+                Symbol = new Symbol(Symbols.Plus)
+                {
+                    Colour = Color.black
+                }
             });
             lines.Add($"Static Friction: {Math.Round(ball.material.staticFriction, 1)}", new Widget_PushButton(SelectPushButton, 3, -1f)
             {
-                Colour = ColourPalette.Red,
-                Symbol = (Symbol)Symbols.Stop
+                Symbol = new Symbol(Symbols.Minus)
+                {
+                    Colour = Color.black
+                }
             }, new Widget_PushButton(SelectPushButton, 3, 1f)
             {
-                Colour = ColourPalette.Green,
-                Symbol = (Symbol)Symbols.Play
+                Symbol = new Symbol(Symbols.Plus)
+                {
+                    Colour = Color.black
+                }
             });
             lines.Add($"Style: {(FlunkController.stylesAndNames.TryGetValue(ball.style, out string value) ? value : "N/A")}", new Widget_SnapSlider(ball.style, 0, FlunkController.stylesAndNames.Count - 1, AdjustSlider)
             {
@@ -57,7 +65,7 @@ namespace Flunklug.Models
                 switch (option)
                 {
                     case 0:
-                        ball.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0), true);
+                        ball.Teleport(Player.Instance.HeadCenterPosition + Random.insideUnitSphere.WithY(0) * 0.25f, true);
                         break;
                     case 1:
                         FlunkController.Instance.DestroyBall(ball, true);
